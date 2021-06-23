@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GitLabApiClient.Internal.Paths;
+using GitLabApiClient.Models.Discussions.Responses;
 using GitLabApiClient.Models.Issues.Requests;
 using GitLabApiClient.Models.Issues.Responses;
 using GitLabApiClient.Models.Notes.Requests;
@@ -144,5 +145,43 @@ namespace GitLabApiClient
         /// <param name="issueIid">The IID of an issue.</param>
         /// <param name="noteId">The ID of a note.</param>
         Task DeleteNoteAsync(ProjectId projectId, int issueIid, int noteId);
+
+        /// <summary>
+        /// Creates a new discussuion and a note (comment) to a single project issue.
+        /// </summary>
+        /// <returns>The newly created discussion.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="request">Create issue note request.</param>
+        Task<Discussion> CreateDiscussionAsync(ProjectId projectId, int issueIid, CreateNoteRequest request);
+
+        /// <summary>
+        /// Adds a new note to an existing discussuion to a single project issue.
+        /// </summary>
+        /// <returns>The new note.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of the disussion.</param>
+        /// <param name="request">Create issue note request.</param>
+        Task<Note> AddDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, CreateNoteRequest request);
+
+        /// <summary>
+        /// Updates an existing note in an existing discussuion of a single project issue.
+        /// </summary>
+        /// <returns>The existing note.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of the disussion.</param>
+        /// <param name="noteId">The ID of a note.</param>
+        /// <param name="request">Update issue note request.</param>
+        Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, int noteId, UpdateIssueNoteRequest request);
+
+        /// <summary>
+        /// Retrieves discussuions and notes (comment) from a single project issue.
+        /// </summary>
+        /// <returns>The issue discussions and notes.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        Task<IList<Discussion>> GetDiscussionsAsync(ProjectId projectId, int issueIid);
     }
 }

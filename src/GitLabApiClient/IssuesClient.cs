@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GitLabApiClient.Internal.Http;
 using GitLabApiClient.Internal.Paths;
 using GitLabApiClient.Internal.Queries;
+using GitLabApiClient.Models.Discussions.Responses;
 using GitLabApiClient.Models.Groups.Responses;
 using GitLabApiClient.Models.Issues.Requests;
 using GitLabApiClient.Models.Issues.Responses;
@@ -205,5 +206,47 @@ namespace GitLabApiClient
         /// <param name="noteId">The ID of a note.</param>
         public async Task DeleteNoteAsync(ProjectId projectId, int issueIid, int noteId) =>
             await _httpFacade.Delete($"projects/{projectId}/issues/{issueIid}/notes/{noteId}");
+
+        /// <summary>
+        /// Creates a new discussuion and a note (comment) to a single project issue.
+        /// </summary>
+        /// <returns>The newly created discussion.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="request">Create issue note request.</param>
+        public async Task<Discussion> CreateDiscussionAsync(ProjectId projectId, int issueIid, CreateNoteRequest request) =>
+            await _httpFacade.Post<Discussion>($"projects/{projectId}/issues/{issueIid}/discussions", request);
+
+        /// <summary>
+        /// Adds a new note to an existing discussuion to a single project issue.
+        /// </summary>
+        /// <returns>The new note.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of the disussion.</param>
+        /// <param name="request">Create issue note request.</param>
+        public async Task<Note> AddDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, CreateNoteRequest request) =>
+            await _httpFacade.Post<Note>($"projects/{projectId}/issues/{issueIid}/discussions/{discussionId}/notes", request);
+
+        /// <summary>
+        /// Updates an existing note in an existing discussuion of a single project issue.
+        /// </summary>
+        /// <returns>The existing note.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of the disussion.</param>
+        /// <param name="noteId">The ID of a note.</param>
+        /// <param name="request">Update issue note request.</param>
+        public async Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, int noteId, UpdateIssueNoteRequest request) =>
+            await _httpFacade.Put<Note>($"projects/{projectId}/issues/{issueIid}/discussions/{discussionId}/notes/{noteId}", request);
+
+        /// <summary>
+        /// Retrieves discussuions and notes (comment) from a single project issue.
+        /// </summary>
+        /// <returns>The issue discussions and notes.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        public async Task<IList<Discussion>> GetDiscussionsAsync(ProjectId projectId, int issueIid) =>
+            await _httpFacade.GetPagedList<Discussion>($"projects/{projectId}/issues/{issueIid}/discussions");
     }
 }
