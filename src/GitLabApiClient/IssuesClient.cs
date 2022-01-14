@@ -248,5 +248,15 @@ namespace GitLabApiClient
         /// <param name="issueIid">The IID of an issue.</param>
         public async Task<IList<Discussion>> GetDiscussionsAsync(ProjectId projectId, int issueIid) =>
             await _httpFacade.GetPagedList<Discussion>($"projects/{projectId}/issues/{issueIid}/discussions");
+
+        /// <summary>
+        /// Moves an issues to a new project
+        /// </summary>
+        /// <returns>The reorderd issue.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="request">Reorder issue request.</param>
+        public async Task<Issue> ReorderIssueAsync(ProjectId projectId, int issueIid, ReorderIssueRequest request) =>
+            await _httpFacade.Put<Issue>($"projects/{projectId}/issues/{issueIid}/reorder", request);
     }
 }

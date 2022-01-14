@@ -113,10 +113,10 @@ namespace GitLabApiClient
         /// <summary>
         /// Moves an issues to a new project
         /// </summary>
-        /// <returns>The newly created issue note.</returns>
+        /// <returns>The moved issue.</returns>
         /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
         /// <param name="issueIid">The IID of an issue.</param>
-        /// <param name="request">Create issue note request.</param>
+        /// <param name="request">Move issue note request.</param>
         Task<Issue> MoveIssueAsync(ProjectId projectId, int issueIid, MoveIssueRequest request);
 
         /// <summary>
@@ -183,5 +183,14 @@ namespace GitLabApiClient
         /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
         /// <param name="issueIid">The IID of an issue.</param>
         Task<IList<Discussion>> GetDiscussionsAsync(ProjectId projectId, int issueIid);
+
+        /// <summary>
+        /// Moves an issues to a new project
+        /// </summary>
+        /// <returns>The reorderd issue.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="request">Reorder issue request.</param>
+        Task<Issue> ReorderIssueAsync(ProjectId projectId, int issueIid, ReorderIssueRequest request);
     }
 }
