@@ -39,6 +39,10 @@ namespace GitLabApiClient.Internal.Http
                 case 20:
                     _httpClient.DefaultRequestHeaders.Add(PrivateToken, authenticationToken);
                     break;
+                case 26:
+                    // Add support for new length of GitLab private tokens
+                    _httpClient.DefaultRequestHeaders.Add(PrivateToken, authenticationToken);
+                    break;
                 case 64:
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationToken);
                     break;
