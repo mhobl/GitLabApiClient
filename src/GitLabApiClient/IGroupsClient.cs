@@ -6,6 +6,8 @@ using GitLabApiClient.Models;
 using GitLabApiClient.Models.Epics.Responses;
 using GitLabApiClient.Models.Groups.Requests;
 using GitLabApiClient.Models.Groups.Responses;
+using GitLabApiClient.Models.Iterations.Requests;
+using GitLabApiClient.Models.Iterations.Responses;
 using GitLabApiClient.Models.Milestones.Requests;
 using GitLabApiClient.Models.Milestones.Responses;
 using GitLabApiClient.Models.Projects.Responses;
@@ -97,6 +99,13 @@ namespace GitLabApiClient
         /// <param name="groupId">The ID, path or <see cref="Group"/> of the group.</param>
         /// <param name="milestoneId">Id of the milestone.</param>
         Task<Milestone> GetMilestoneAsync(GroupId groupId, int milestoneId);
+
+        /// <summary>
+        /// Get a list of iterations in this group.
+        /// </summary>
+        /// <param name="groupId">The ID, path or <see cref="Group"/> of the group.</param>
+        /// <param name="options">Query options.</param>
+        Task<IList<Iteration>> GetIterationsAsync(GroupId groupId, Action<IterationsQueryOptions> options = null);
 
         /// <summary>
         /// Get a list of runners in a group.

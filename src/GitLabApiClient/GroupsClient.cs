@@ -10,6 +10,8 @@ using GitLabApiClient.Models;
 using GitLabApiClient.Models.Epics.Responses;
 using GitLabApiClient.Models.Groups.Requests;
 using GitLabApiClient.Models.Groups.Responses;
+using GitLabApiClient.Models.Iterations.Requests;
+using GitLabApiClient.Models.Iterations.Responses;
 using GitLabApiClient.Models.Milestones.Requests;
 using GitLabApiClient.Models.Milestones.Responses;
 using GitLabApiClient.Models.Projects.Responses;
@@ -30,6 +32,7 @@ namespace GitLabApiClient
         private readonly MilestonesQueryBuilder _queryMilestonesBuilder;
         private readonly GroupLabelsQueryBuilder _queryGroupLabelBuilder;
         private readonly EpicsGroupQueryBuilder _epicsGroupQueryBuilder;
+        private readonly IterationsQueryBuilder _queryIterationsBuilder;
 
         internal GroupsClient(
             GitLabHttpFacade httpFacade,
@@ -37,7 +40,8 @@ namespace GitLabApiClient
             ProjectsGroupQueryBuilder projectsQueryBuilder,
             MilestonesQueryBuilder queryMilestonesBuilder,
             GroupLabelsQueryBuilder queryGroupLabelBuilder,
-            EpicsGroupQueryBuilder epicsGroupQueryBuilder)
+            EpicsGroupQueryBuilder epicsGroupQueryBuilder,
+            IterationsQueryBuilder queryIterationsBuilder)
         {
             _httpFacade = httpFacade;
             _queryBuilder = queryBuilder;
@@ -45,6 +49,7 @@ namespace GitLabApiClient
             _queryMilestonesBuilder = queryMilestonesBuilder;
             _queryGroupLabelBuilder = queryGroupLabelBuilder;
             _epicsGroupQueryBuilder = epicsGroupQueryBuilder;
+            _queryIterationsBuilder = queryIterationsBuilder;
         }
 
         /// <summary>
@@ -185,6 +190,20 @@ namespace GitLabApiClient
         /// <param name="milestoneId">Id of the milestone.</param>
         public async Task<Milestone> GetMilestoneAsync(GroupId groupId, int milestoneId) =>
             await _httpFacade.Get<Milestone>($"groups/{groupId}/milestones/{milestoneId}");
+
+        /// <summary>
+        /// Get a list of iterations in this group.
+        /// </summary>
+        /// <param name="groupId">The ID, path or <see cref="Group"/> of the group.</param>
+        /// <param name="options">Query options.</param>
+        public async Task<IList<Iteration>> GetIterationsAsync(GroupId groupId, Action<IterationsQueryOptions> options = null)
+        {
+            var queryOptions = new IterationsQueryOptions();
+            options?.Invoke(queryOptions);
+
+            string url = _queryIterationsBuilder.Build($"groups/{groupId}/iterations", queryOptions);
+            return await _httpFacade.GetPagedList<Iteration>(url);
+        }
 
         /// <summary>
         /// Get a list of runners in a group.
