@@ -185,6 +185,15 @@ namespace GitLabApiClient
         Task<IList<Discussion>> GetDiscussionsAsync(ProjectId projectId, int issueIid);
 
         /// <summary>
+        /// Retrieves discussuion and notes (comment) from a single project issue.
+        /// </summary>
+        /// <returns>The issue discussion and notes.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of a discussion.</param>
+        Task<Discussion> GetDiscussionAsync(ProjectId projectId, int issueIid, string discussionId);
+
+        /// <summary>
         /// Moves an issues to a new project
         /// </summary>
         /// <returns>The reorderd issue.</returns>

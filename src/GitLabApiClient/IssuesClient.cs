@@ -250,6 +250,16 @@ namespace GitLabApiClient
             await _httpFacade.GetPagedList<Discussion>($"projects/{projectId}/issues/{issueIid}/discussions");
 
         /// <summary>
+        /// Retrieves discussuion and notes (comment) from a single project issue.
+        /// </summary>
+        /// <returns>The issue discussion and notes.</returns>
+        /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
+        /// <param name="issueIid">The IID of an issue.</param>
+        /// <param name="discussionId">The ID of a discussion.</param>
+        public async Task<Discussion> GetDiscussionAsync(ProjectId projectId, int issueIid, string discussionId) =>
+            await _httpFacade.Get<Discussion>($"projects/{projectId}/issues/{issueIid}/discussions/{discussionId}");
+
+        /// <summary>
         /// Moves an issues to a new project
         /// </summary>
         /// <returns>The reorderd issue.</returns>
