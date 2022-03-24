@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GitLabApiClient.Models.Iterations.Responses;
 using GitLabApiClient.Models.Milestones.Responses;
 using Newtonsoft.Json;
 
@@ -60,5 +61,8 @@ namespace GitLabApiClient.Models.Issues.Responses
 
         [JsonProperty("task_completion_status")]
         public IssueTaskCompletionStatus TaskCompletionStatus { get; set; }
+
+        [JsonProperty("iteration")]
+        public Iteration Iteration { get; set; }
     }
 }
