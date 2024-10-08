@@ -129,7 +129,7 @@ namespace GitLabApiClient
         /// <param name="issueIid">Iid of the issue.</param>
         /// <param name="noteId">Id of the note.</param>
         /// <returns>Issues satisfying options.</returns>
-        public async Task<Note> GetNoteAsync(ProjectId projectId, int issueIid, int noteId) =>
+        public async Task<Note> GetNoteAsync(ProjectId projectId, int issueIid, long noteId) =>
             await _httpFacade.Get<Note>($"projects/{projectId}/issues/{issueIid}/notes/{noteId}");
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace GitLabApiClient
         /// <param name="issueIid">The IID of an issue.</param>
         /// <param name="noteId">The ID of a note.</param>
         /// <param name="request">Update issue note request.</param>
-        public async Task<Note> UpdateNoteAsync(ProjectId projectId, int issueIid, int noteId, UpdateIssueNoteRequest request) =>
+        public async Task<Note> UpdateNoteAsync(ProjectId projectId, int issueIid, long noteId, UpdateIssueNoteRequest request) =>
             await _httpFacade.Put<Note>($"projects/{projectId}/issues/{issueIid}/notes/{noteId}", request);
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace GitLabApiClient
         /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
         /// <param name="issueIid">The IID of an issue.</param>
         /// <param name="noteId">The ID of a note.</param>
-        public async Task DeleteNoteAsync(ProjectId projectId, int issueIid, int noteId) =>
+        public async Task DeleteNoteAsync(ProjectId projectId, int issueIid, long noteId) =>
             await _httpFacade.Delete($"projects/{projectId}/issues/{issueIid}/notes/{noteId}");
 
         /// <summary>

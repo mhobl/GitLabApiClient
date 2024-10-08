@@ -82,7 +82,7 @@ namespace GitLabApiClient
         /// <param name="issueIid">Iid of the issue.</param>
         /// <param name="noteId">Id of the note.</param>
         /// <returns>Issues satisfying options.</returns>
-        Task<Note> GetNoteAsync(ProjectId projectId, int issueIid, int noteId);
+        Task<Note> GetNoteAsync(ProjectId projectId, int issueIid, long noteId);
 
         /// <summary>
         /// Retrieves notes (comments) of an issue.
@@ -136,7 +136,7 @@ namespace GitLabApiClient
         /// <param name="issueIid">The IID of an issue.</param>
         /// <param name="noteId">The ID of a note.</param>
         /// <param name="request">Update issue note request.</param>
-        Task<Note> UpdateNoteAsync(ProjectId projectId, int issueIid, int noteId, UpdateIssueNoteRequest request);
+        Task<Note> UpdateNoteAsync(ProjectId projectId, int issueIid, long noteId, UpdateIssueNoteRequest request);
 
         /// <summary>
         /// Deletes an existing note (comment) of an issue.
@@ -144,7 +144,7 @@ namespace GitLabApiClient
         /// <param name="projectId">The ID, path or <see cref="Project"/> of the project.</param>
         /// <param name="issueIid">The IID of an issue.</param>
         /// <param name="noteId">The ID of a note.</param>
-        Task DeleteNoteAsync(ProjectId projectId, int issueIid, int noteId);
+        Task DeleteNoteAsync(ProjectId projectId, int issueIid, long noteId);
 
         /// <summary>
         /// Creates a new discussuion and a note (comment) to a single project issue.
