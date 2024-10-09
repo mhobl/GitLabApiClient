@@ -237,7 +237,7 @@ namespace GitLabApiClient
         /// <param name="discussionId">The ID of the disussion.</param>
         /// <param name="noteId">The ID of a note.</param>
         /// <param name="request">Update issue note request.</param>
-        public async Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, int noteId, UpdateIssueNoteRequest request) =>
+        public async Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, long noteId, UpdateIssueNoteRequest request) =>
             await _httpFacade.Put<Note>($"projects/{projectId}/issues/{issueIid}/discussions/{discussionId}/notes/{noteId}", request);
 
         /// <summary>

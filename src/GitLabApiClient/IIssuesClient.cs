@@ -174,7 +174,7 @@ namespace GitLabApiClient
         /// <param name="discussionId">The ID of the disussion.</param>
         /// <param name="noteId">The ID of a note.</param>
         /// <param name="request">Update issue note request.</param>
-        Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, int noteId, UpdateIssueNoteRequest request);
+        Task<Note> UpdateDiscussionNoteAsync(ProjectId projectId, int issueIid, string discussionId, long noteId, UpdateIssueNoteRequest request);
 
         /// <summary>
         /// Retrieves discussuions and notes (comment) from a single project issue.
